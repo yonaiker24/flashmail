@@ -4,8 +4,10 @@
    $conexion = pg_connect($conn_string);
                       
    if (!$conexion) {
-    echo "Error: No se pudo conectar a Postgresql." . pg_last_error();
+    echo "Error: No se pudo conectar a MySQL." . pg_last_error();
     exit;
+   }else{
+    echo "conecto";
    }
     
     $nombres = $_POST['nombres'];
@@ -21,7 +23,7 @@
     $codigoPostal = $_POST['codigoPostal'];
 
     // ----------------CREAR USUARIO--------------------
-    $usuario = "INSERT INTO usuario(correo, contrasena) VALUES ('$correo', '$contraseña')";
+    $usuario = "INSERT INTO usuario(correo, contrasena) VALUES('$correo', '$contraseña') RETURNING id";
     $ejecutar = pg_query($usuario); 
     if(!$ejecutar){
       echo "<br>";
@@ -29,14 +31,16 @@
     }
 
     //--------------CRERAR CLIENTE----------------------    
-    $row = pg_fetch_row($ejecutar);
-    $idUsuario = $row[1]; //buscando el id del usuario para agregarselo a la tabla cliente 
-    $cliente = "INSERT INTO cliente(id_usuario, nombre, apellido, fecha_nacimiento) VALUES ('$idUsuario','$nombres', '$apellidos', '$fechaNacimiento' )";
+    $row = pg_fetch_array($ejecutar);
+    echo " <br> Lo que muestra row" . $row;
+    $idUsuario = $row[0]; //buscando el id del usuario para agregarselo a la tabla cliente 
+    $cliente="INSERT INTO cliente(nombre, apellido, fecha_nacimiento,id_usuario) VALUES('$nombres', '$apellidos', '$fechaNacimiento', '$idUsuario')";
     $ejecutar = pg_query($cliente);
     if(!$ejecutar){
       echo "<br>";
       echo "Error: " . pg_last_error();
     }
+
 
     pg_close($conexion);
                       
