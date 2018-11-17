@@ -34,10 +34,10 @@
     }
 
      
-    $idUsuario = mysqli_insert_id($conexion); //aqui retomo el id del ultimo Usuario creado en la BD
+    $idUsuario = pg_insert_id($conexion); //aqui retomo el id del ultimo Usuario creado en la BD
     
-    $cliente="INSERT INTO cliente(nombre, apellido, fecha_nacimiento, id_cliente ,id_usuario) VALUES('$nombres', '$apellidos', '$fechaNacimiento', '$idUsuario','$idUsuario')";
-    $ejecutar = mysqli_query($conexion,$cliente);
+    $cliente="INSERT INTO cliente(nombre, apellido, fecha_nacimiento ,id_usuario) VALUES('$nombres', '$apellidos', '$fechaNacimiento', '$idUsuario')";
+    $ejecutar = pg_query($cliente);
     
     
     
@@ -51,9 +51,9 @@
       echo "Error: " . $cliente . "<br>" . mysqli_error($conexion);
     }
 
-    $idCliente = mysqli_insert_id($conexion);//aqui retomo el id del ultimo cliente creado en la 
-    $direccion ="INSERT INTO direccion(id, id_cliente, pais, estado, ciudad, codigo_postal, zona, zona_2) VALUES('$id', '$idCliente', '$pais', '$estado', '$ciudad', '$codigoPostal', '$direccion', '$direccion2')";
-    $ejecutar = mysqli_query($conexion,$direccion);
+    $idCliente = pg_insert_id($conexion);//aqui retomo el id del ultimo cliente creado en la 
+    $direccion ="INSERT INTO direccion( id_cliente, pais, estado, ciudad, codigo_postal, zona, zona_2) VALUES( '$idCliente', '$pais', '$estado', '$ciudad', '$codigoPostal', '$direccion', '$direccion2')";
+    $ejecutar = pg_query($direccion);
 
     //echo "<br>";
     //echo "este es el id: ".$idCliente;
@@ -68,6 +68,6 @@
       echo "Error: " . $direccion . "<br>" . mysqli_error($conexion);
     }
 
-    mysqli_close($conexion);
+    pg_close($conexion);
                       
 ?>
