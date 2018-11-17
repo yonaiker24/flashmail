@@ -40,25 +40,6 @@
       echo "Error: " . pg_last_error();
     }
 
-    $idCliente = pg_fetch_array($ejecutar);//aqui retomo el id del ultimo cliente creado en la 
-    echo "<br>";
-    echo "Esto es lo que retorna pg_fetch_array()". $idCliente;
-    $direccion ="INSERT INTO direccion(id, id_cliente, pais, estado, ciudad, codigo_postal, zona, zona_2) VALUES('$id', '$idCliente', '$pais', '$estado', '$ciudad', '$codigoPostal', '$direccion', '$direccion2')";
-    $ejecutar = mysqli_query($conexion,$direccion);
-
-
-    //echo "este es el id: ".$idCliente;
-
-   // echo "<br>";
-    if($ejecutar){
-    //   echo "datos guardados Correctamente DIRECCION";
-      echo "<script> alert('Registrado Satisfactoriamente')</script>";
-      echo '<script> window.location="../index.php"; </script>';
-
-    }else {
-      echo "Error: " . $direccion . "<br>" . mysqli_error($conexion);
-    }
-
     mysqli_close($conexion);
                       
 ?>
