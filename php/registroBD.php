@@ -35,7 +35,7 @@
 
      
     $idUsuario = pg_insert_id($conexion); //aqui retomo el id del ultimo Usuario creado en la BD
-    
+    echo '$idUsuario';
     $cliente="INSERT INTO cliente(nombre, apellido, fecha_nacimiento ,id_usuario) VALUES('$nombres', '$apellidos', '$fechaNacimiento', '$idUsuario')";
     $ejecutar = pg_query($cliente);
     
