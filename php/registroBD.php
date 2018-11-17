@@ -30,10 +30,10 @@
       echo "Error: " .  pg_last_error();
     }
 
-    //--------------CRERAR CLIENTE----------------------    
-    $row = pg_fetch_array($ejecutar);
-    echo " <br> Lo que muestra row" . $row;
-    $idUsuario = $row[0]; //buscando el id del usuario para agregarselo a la tabla cliente 
+    //--------------CRERAR CLIENTE----------------------  
+    $maxid= pg_query("SELECT MAX(id) FROM usuario");  
+    echo "<br> MAX ID" . $maxid;
+    $idUsuario = $maxid //buscando el id del usuario para agregarselo a la tabla cliente 
     $cliente="INSERT INTO cliente(nombre, apellido, fecha_nacimiento,id_usuario) VALUES('$nombres', '$apellidos', '$fechaNacimiento', '$idUsuario')";
     $ejecutar = pg_query($cliente);
     if(!$ejecutar){
@@ -41,7 +41,25 @@
       echo "Error: " . pg_last_error();
     }
 
+    $idCliente = pg_fetch_array($ejecutar);//aqui retomo el id del ultimo cliente creado en la 
+    echo "<br>";
+    echo "Esto es lo que retorna pg_fetch_array()". $idCliente;
+    $direccion ="INSERT INTO direccion(id, id_cliente, pais, estado, ciudad, codigo_postal, zona, zona_2) VALUES('$id', '$idCliente', '$pais', '$estado', '$ciudad', '$codigoPostal', '$direccion', '$direccion2')";
+    $ejecutar = mysqli_query($conexion,$direccion);
 
-    pg_close($conexion);
+
+    //echo "este es el id: ".$idCliente;
+
+   // echo "<br>";
+    if($ejecutar){
+    //   echo "datos guardados Correctamente DIRECCION";
+      echo "<script> alert('Registrado Satisfactoriamente')</script>";
+      echo '<script> window.location="../index.php"; </script>';
+
+    }else {
+      echo "Error: " . $direccion . "<br>" . mysqli_error($conexion);
+    }
+
+    mysqli_close($conexion);
                       
 ?>
