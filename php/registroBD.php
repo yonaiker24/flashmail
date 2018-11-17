@@ -23,7 +23,7 @@
     $codigoPostal = $_POST['codigoPostal'];
 
     // ----------------CREAR USUARIO--------------------
-    $usuario = "INSERT INTO usuario(correo, contrasena) VALUES('$correo', '$contraseña') RETURNING id";
+    $usuario = "INSERT INTO usuario(correo, contrasena) VALUES('$correo', '$contraseña')";
     $ejecutar = pg_query($usuario); 
     if(!$ejecutar){
       echo "<br>";
