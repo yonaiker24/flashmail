@@ -4,10 +4,8 @@
    $conexion = pg_connect($conn_string);
                       
    if (!$conexion) {
-    echo "Error: No se pudo conectar a MySQL." . pg_last_error();
+    echo "Error: No se pudo conectar a Postgresql." . pg_last_error();
     exit;
-   }else{
-    echo "conecto";
    }
     
     $nombres = $_POST['nombres'];
@@ -23,47 +21,23 @@
     $codigoPostal = $_POST['codigoPostal'];
 
     // ----------------CREAR USUARIO--------------------
-    $usuario = "INSERT INTO usuario(correo, contrasena) VALUES('$correo', '$contraseña')";
+    $usuario = "INSERT INTO usuario(correo, contrasena) VALUES ('$correo', '$contraseña')";
     $ejecutar = pg_query($usuario); 
     if(!$ejecutar){
       echo "<br>";
       echo "Error: " .  pg_last_error();
     }
 
-    //--------------CRERAR CLIENTE----------------------  
-    $maxid= pg_query("SELECT MAX(id) FROM usuario");  
-    if(!$maxid){
-      echo "<br>";
-      echo "Error: " . pg_last_error();
-    }
-    echo "<br> MAX ID" . $maxid;
-    $idUsuario = $maxid //buscando el id del usuario para agregarselo a la tabla cliente 
-    $cliente="INSERT INTO cliente(nombre, apellido, fecha_nacimiento,id_usuario) VALUES('$nombres', '$apellidos', '$fechaNacimiento', '1')";
+    //--------------CRERAR CLIENTE----------------------    
+    $row = pg_fetch_row($ejecutar);
+    $idUsuario = $row[1]; //buscando el id del usuario para agregarselo a la tabla cliente 
+    $cliente = "INSERT INTO cliente(id_usuario, nombre, apellido, fecha_nacimiento) VALUES ('1','$nombres', '$apellidos', '$fechaNacimiento' )";
     $ejecutar = pg_query($cliente);
     if(!$ejecutar){
       echo "<br>";
       echo "Error: " . pg_last_error();
     }
 
-    $idCliente = pg_fetch_array($ejecutar);//aqui retomo el id del ultimo cliente creado en la 
-    echo "<br>";
-    echo "Esto es lo que retorna pg_fetch_array()". $idCliente;
-    $direccion ="INSERT INTO direccion(id, id_cliente, pais, estado, ciudad, codigo_postal, zona, zona_2) VALUES('$id', '$idCliente', '$pais', '$estado', '$ciudad', '$codigoPostal', '$direccion', '$direccion2')";
-    $ejecutar = mysqli_query($conexion,$direccion);
-
-
-    //echo "este es el id: ".$idCliente;
-
-   // echo "<br>";
-    if($ejecutar){
-    //   echo "datos guardados Correctamente DIRECCION";
-      echo "<script> alert('Registrado Satisfactoriamente')</script>";
-      echo '<script> window.location="../index.php"; </script>';
-
-    }else {
-      echo "Error: " . $direccion . "<br>" . mysqli_error($conexion);
-    }
-
-    mysqli_close($conexion);
+    pg_close($conexion);
                       
 ?>
