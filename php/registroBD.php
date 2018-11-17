@@ -25,7 +25,7 @@
 
     $id = '';
 
-    $usuario = "INSERT INTO usuario(id_usuario, correo, contrasena) VALUES('$id', '$correo', '$contraseña')";
+    $usuario = "INSERT INTO usuario(id_usuario, correo, contrasena) VALUES('1', '$correo', '$contraseña')";
     $ejecutar = pg_query($usuario); 
     if($ejecutar){
       //  echo "datos guardados Correctamente USUARIO";
