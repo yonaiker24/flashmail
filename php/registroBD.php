@@ -38,7 +38,7 @@
     }
     echo "<br> MAX ID" . $maxid;
     $idUsuario = $maxid //buscando el id del usuario para agregarselo a la tabla cliente 
-    $cliente="INSERT INTO cliente(nombre, apellido, fecha_nacimiento,id_usuario) VALUES('$nombres', '$apellidos', '$fechaNacimiento', '$idUsuario')";
+    $cliente="INSERT INTO cliente(nombre, apellido, fecha_nacimiento,id_usuario) VALUES('$nombres', '$apellidos', '$fechaNacimiento', '1')";
     $ejecutar = pg_query($cliente);
     if(!$ejecutar){
       echo "<br>";
