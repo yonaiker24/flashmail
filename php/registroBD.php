@@ -1,5 +1,6 @@
 <?php
-  $conn_string = "host=ec2-54-235-193-0.compute-1.amazonaws.com port=5432 dbname=dbrpcostlumanv user=yzlgbqotsrcikb password=928dad77a909ba60de8e439578ca7d40ef2800d95f0cd9f95c35e700e8ddb34b options='--client_encoding=UTF8'";       
+  $sql;    
+   $conn_string = "host=ec2-54-235-193-0.compute-1.amazonaws.com port=5432 dbname=dbrpcostlumanv user=yzlgbqotsrcikb password=928dad77a909ba60de8e439578ca7d40ef2800d95f0cd9f95c35e700e8ddb34b options='--client_encoding=UTF8'";      
            
    $conexion = pg_connect($conn_string);
                       
@@ -35,7 +36,7 @@
      
     $idUsuario = mysqli_insert_id($conexion); //aqui retomo el id del ultimo Usuario creado en la BD
     
-    $cliente="INSERT INTO cliente(nombre, apellido, fecha_nacimiento, id ,id_usuario) VALUES('$nombres', '$apellidos', '$fechaNacimiento', '$idUsuario','$idUsuario')";
+    $cliente="INSERT INTO cliente(nombre, apellido, fecha_nacimiento, id_cliente ,id_usuario) VALUES('$nombres', '$apellidos', '$fechaNacimiento', '$idUsuario','$idUsuario')";
     $ejecutar = mysqli_query($conexion,$cliente);
     
     
