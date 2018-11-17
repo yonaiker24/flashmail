@@ -32,6 +32,10 @@
 
     //--------------CRERAR CLIENTE----------------------  
     $maxid= pg_query("SELECT MAX(id) FROM usuario");  
+    if(!$maxid){
+      echo "<br>";
+      echo "Error: " . pg_last_error();
+    }
     echo "<br> MAX ID" . $maxid;
     $idUsuario = $maxid //buscando el id del usuario para agregarselo a la tabla cliente 
     $cliente="INSERT INTO cliente(nombre, apellido, fecha_nacimiento,id_usuario) VALUES('$nombres', '$apellidos', '$fechaNacimiento', '$idUsuario')";
