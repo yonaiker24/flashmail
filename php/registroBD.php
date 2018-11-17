@@ -1,15 +1,15 @@
 <?php
-  $servidor = "ec2-54-235-193-0.compute-1.amazonaws.com"; //Aqui va el servidor que utilizaremos
-  $usuario = "yzlgbqotsrcikb";  // aqui va nuestro usuario de la base de datos
-  $contraseña = "928dad77a909ba60de8e439578ca7d40ef2800d95f0cd9f95c35e700e8ddb34b";   // contrasela del usuario en caso de tenerla
-  $BD = "dbrpcostlumanv";  // nombre de la base de datos
+ // $servidor = "ec2-54-235-193-0.compute-1.amazonaws.com"; //Aqui va el servidor que utilizaremos
+  //$usuario = "yzlgbqotsrcikb";  // aqui va nuestro usuario de la base de datos
+  //$contraseña = "928dad77a909ba60de8e439578ca7d40ef2800d95f0cd9f95c35e700e8ddb34b";   // contrasela del usuario en caso de tenerla
+  //$BD = "dbrpcostlumanv";  // nombre de la base de datos
    $sql;    
    $conn_string = "host=ec2-54-235-193-0.compute-1.amazonaws.com port=5432 dbname=dbrpcostlumanv user=yzlgbqotsrcikb password=928dad77a909ba60de8e439578ca7d40ef2800d95f0cd9f95c35e700e8ddb34b options='--client_encoding=UTF8'";       
            
    $conexion = pg_connect($conn_string);
                       
    if (!$conexion) {
-    echo "Error: No se pudo conectar a MySQL." . PHP_EOL;
+    echo "Error: No se pudo conectar a postgresql." . PHP_EOL;
     echo "errno de depuración: " . mysqli_connect_errno() . PHP_EOL;
     echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
     exit;
@@ -40,8 +40,8 @@
 
 
    
-    $usuario = "INSERT INTO usuario(id_usuario, correo, contrasena) VALUES('$id', '$correo', '$contraseña')";
-    $ejecutar = mysqli_query($conexion,$usuario);
+    $usuario = "INSERT INTO usuario(id_usuario, correo, contrasena) VALUES ('$id', '$correo', '$contraseña')";
+    $ejecutar = pg_query($conexion,$usuario);
 
     //echo "<br>";
     if($ejecutar){
