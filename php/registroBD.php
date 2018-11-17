@@ -31,13 +31,13 @@
     //--------------CRERAR CLIENTE----------------------    
     $row = pg_fetch_row($ejecutar);
     $idUsuario = $row[0]; //buscando el id del usuario para agregarselo a la tabla cliente 
-    $cliente="INSERT INTO cliente(id_usuario,nombre, apellido, fecha_nacimiento) VALUES ($idUsuario,'$nombres', '$apellidos', '$fechaNacimiento' )";
+    $cliente="INSERT INTO cliente(id_usuario,nombre, apellido, fecha_nacimiento) VALUES ('$idUsuario','$nombres', '$apellidos', '$fechaNacimiento' )";
     $ejecutar = pg_query($cliente);
     if(!$ejecutar){
       echo "<br>";
       echo "Error: " . pg_last_error();
     }
 
-    mysqli_close($conexion);
+    pg_close($conexion);
                       
 ?>
