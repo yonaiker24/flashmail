@@ -41,7 +41,7 @@
 
    
     $usuario = "INSERT INTO usuario(id_usuario, correo, contrasena) VALUES ('$id', '$correo', '$contraseña')";
-    $ejecutar = pg_query("SELECT * FROM usuario WHERE id_usuario=$usuario");
+    $ejecutar = pg_query("SELECT * FROM usuario WHERE id_usuario='$id'");
 
     //echo "<br>";
     if($ejecutar){
