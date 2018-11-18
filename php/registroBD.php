@@ -31,16 +31,35 @@
     //--------------CRERAR CLIENTE----------------------    
     $row = pg_fetch_row($ejecutar);
     $idUsuario = $row[0]; //buscando el id del usuario para agregarselo a la tabla cliente 
-    $cliente = "INSERT INTO cliente(id_usuario, nombre, apellido, fecha_nacimiento) VALUES ('$idUsuario','$nombres', '$apellidos', '$fechaNacimiento' )";
+    $cliente = "INSERT INTO cliente(id_usuario, nombre, apellido, fecha_nacimiento) VALUES ('$idUsuario','$nombres', '$apellidos', '$fechaNacimiento' )RETURNING id_cliente";
     $ejecutar = pg_query($cliente);
     if(!$ejecutar){
       echo "<br>";
       echo "Error: " . pg_last_error();
-    }else{
-       echo "<script> alert('Registrado Satisfactoriamente')</script>";
-      echo '<script> window.location="../index.php"; </script>';
     }
 
+   //-------------CREAR DIRECCION----------------------
+    $row = pg_fetch_row($ejecutar);
+    $idCliente = $row[0]; //buscando el id del cliente para agregarselo a la tabla direccion
+    $direccion ="INSERT INTO direccion(id_cliente, pais, estado, ciudad, codigo_postal, zona, zona_2) VALUES('$idCliente', '$pais', '$estado', '$ciudad', '$codigoPostal', '$direccion', '$direccion2')";
+    $ejecutar = pg_query($direccion);
+    if(!$ejecutar){
+      echo "<br>";
+      echo "Error: " . pg_last_error();
+    }
+
+    //-----------USUARIO REGISTRADO-----------------------
+    if($ejecutar){
+      echo "<script> alert('Registrado Satisfactoriamente')</script>";
+      echo '<script> window.location="../index.php"; </script>';
+
+    }else {
+      echo "Error: " . pg_last_error();
+    }
+
+
+
+    //---------CERRAR CONEXION----------------------
     pg_close($conexion);
                       
 ?>
