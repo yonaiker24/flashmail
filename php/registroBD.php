@@ -21,7 +21,7 @@
     $codigoPostal = $_POST['codigoPostal'];
 
     // ----------------CREAR USUARIO--------------------
-    $usuario = "INSERT INTO usuario(correo, contrasena) VALUES ('$correo', '$contraseña')";
+    $usuario = "INSERT INTO usuario(correo, contrasena) VALUES ('$correo', '$contraseña') RETURNING usuario_id";
     $ejecutar = pg_query($usuario); 
     if(!$ejecutar){
       echo "<br>";
@@ -30,8 +30,8 @@
 
     //--------------CRERAR CLIENTE----------------------    
     $row = pg_fetch_row($ejecutar);
-    $idUsuario = $row[1]; //buscando el id del usuario para agregarselo a la tabla cliente 
-    $cliente = "INSERT INTO cliente(id_usuario, nombre, apellido, fecha_nacimiento) VALUES ('1','$nombres', '$apellidos', '$fechaNacimiento' )";
+    $idUsuario = $row[0]; //buscando el id del usuario para agregarselo a la tabla cliente 
+    $cliente = "INSERT INTO cliente(id_usuario, nombre, apellido, fecha_nacimiento) VALUES ('$idUsuario','$nombres', '$apellidos', '$fechaNacimiento' )";
     $ejecutar = pg_query($cliente);
     if(!$ejecutar){
       echo "<br>";
