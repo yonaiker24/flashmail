@@ -36,6 +36,9 @@
     if(!$ejecutar){
       echo "<br>";
       echo "Error: " . pg_last_error();
+    }else{
+       echo "<script> alert('Registrado Satisfactoriamente')</script>";
+      echo '<script> window.location="../index.php"; </script>';
     }
 
     pg_close($conexion);
