@@ -1,3 +1,2 @@
-# FlahMail
-
-Proyecto de Ing del Software. María G. Avendaño, Gabriel Ortega y Yonaiker Vazquez.
+<<<<<<< HEAD
+>>>>>>> 4146bbe71b946143286c297c6aa214a05d8fc736
